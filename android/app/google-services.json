@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "813199146802",
+    "project_id": "clg-chat-e0a95",
+    "storage_bucket": "clg-chat-e0a95.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813199146802:android:cf393a4e4d7e214ce1a12b",
+        "android_client_info": {
+          "package_name": "com.example.clg_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813199146802-kfm8djj9u1hcf1t5np857tlni4mlq5nq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.clg_chat",
+            "certificate_hash": "6eace54190b870b93f47e62419419fced0fcdf6f"
+          }
+        },
+        {
+          "client_id": "813199146802-0rohrofckq4tgudco36asu6g3tvv3pha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRH2YoTpUdXkVMqLQKVnpJXZAAkuS_fg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813199146802-0rohrofckq4tgudco36asu6g3tvv3pha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
