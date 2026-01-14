@@ -1,27 +1,27 @@
+import 'package:clg_chat/components/mylogs.dart';
 import 'package:clg_chat/features/auth/domain/entities/app_user.dart';
-import 'package:clg_chat/features/auth/domain/repos/auth_repo.dart';
-import 'package:clg_chat/features/auth/presentation/cubits/auth_states.dart';
-import 'package:clg_chat/mylogs/mylogs.dart';
+import 'package:clg_chat/features/auth/domain/repo/auth_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:clg_chat/features/auth/presentation/cubits/auth_states.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   final AuthRepo authRepo;
-  AppUser? _currentuser;
-
+  AppUser? _currentUser;
   AuthCubit({required this.authRepo}) : super(AuthInitial());
+
   void checkAuth() async {
     emit(AuthLoading());
     MyLog.info("AuthLoading on CheckAuth");
     final AppUser? user = await authRepo.getCurrentUser();
     if (user != null) {
-      _currentuser = user;
+      _currentUser = user;
       emit(Authenticated(user));
     } else {
       emit(Unauthenticated());
     }
   }
 
-  AppUser? get currentUser => _currentuser;
+  AppUser? get currentUser => _currentUser;
 
   Future<void> login(String email, String password) async {
     try {
@@ -30,71 +30,41 @@ class AuthCubit extends Cubit<AuthState> {
 
       final user = await authRepo.loginWithEmailAndPassword(email, password);
       if (user != null) {
-        _currentuser = user;
+        _currentUser = user;
         emit(Authenticated(user));
       } else {
-        emit(AuthError("Invalid email or password"));
         emit(Unauthenticated());
       }
     } catch (e) {
-      AuthError('Auth Error : $e');
+      emit(AuthError('Auth Error : $e'));
       emit(Unauthenticated());
+      MyLog.info("Error on login $e");
     }
   }
 
   Future<void> register(String name, String email, String password) async {
-    try {
+   try {
+      MyLog.info("AuthLoading on Login");
       emit(AuthLoading());
-      MyLog.info("AuthLoading on Register");
 
-      final user = await authRepo.registerWithEmailAndPassword(
-        name,
-        email,
-
-        password,
-      );
+      final user = await authRepo.registerWithEmailAndPassword(name,email, password);
       if (user != null) {
-        _currentuser = user;
+        _currentUser = user;
         emit(Authenticated(user));
       } else {
         emit(Unauthenticated());
       }
     } catch (e) {
-      AuthError('Auth Error : $e');
+      emit(AuthError('Auth Error : $e'));
       emit(Unauthenticated());
+      MyLog.info("Error on login $e");
     }
   }
-
   Future<void> logout() async {
     emit(AuthLoading());
     MyLog.info("AuthLoading on Logout");
 
     await authRepo.logout();
     emit(Unauthenticated());
-  }
-
-  Future<String> forgetpassword(String email) async {
-    try {
-      final message = await authRepo.sendPasswordResetEmail(email);
-      return message;
-    } catch (e) {
-      return "Error at logut $e";
-    }
-  }
-
-  Future<void> signInwithGoogle() async {
-    try {
-      emit(AuthLoading());
-      final user = await authRepo.signInWithGoogle();
-      if (user != null) {
-        _currentuser = user;
-        emit(Authenticated(user));
-      } else {
-        emit(Unauthenticated());
-      }
-    } catch (e) {
-      AuthError('Auth Error : $e');
-      emit(Unauthenticated());
-    }
   }
 }

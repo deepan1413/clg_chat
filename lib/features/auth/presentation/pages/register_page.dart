@@ -1,31 +1,17 @@
-import 'package:clg_chat/components/mybutton.dart';
-import 'package:clg_chat/components/mytextfield.dart';
-import 'package:clg_chat/mylogs/mylogs.dart';
+import 'package:clg_chat/components/my_button.dart';
+import 'package:clg_chat/components/my_text_field.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+   void Function()? onPressed;
+
+   RegisterPage({super.key, required this.onPressed});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
+class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -43,13 +29,32 @@ class _RegisterPageState extends State<RegisterPage>
                 fontWeight: FontWeight.bold,
               ),
             ),
+            MyTextfield(label: 'Name'),
             MyTextfield(label: 'Email'),
             MyTextfield(label: 'password'),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(8.0),
               child: MyButton(name: "Register", ontap: () {}),
             ),
-          
+           Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: .end,
+                children: [
+                  Text('don\'t have account? '),
+                
+                TextButton(onPressed:widget.onPressed , child: 
+                  Text(
+                    'Sign up',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Color(0xfe21B3EC),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+                ],
+              ),
+            ),
           ],
         ),
       ),

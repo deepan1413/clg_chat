@@ -23,10 +23,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -55,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '813199146802',
     projectId: 'clg-chat-e0a95',
     authDomain: 'clg-chat-e0a95.firebaseapp.com',
+    databaseURL: 'https://clg-chat-e0a95-default-rtdb.firebaseio.com',
     storageBucket: 'clg-chat-e0a95.firebasestorage.app',
     measurementId: 'G-BBT37SYDKX',
   );
@@ -64,7 +62,20 @@ class DefaultFirebaseOptions {
     appId: '1:813199146802:android:cf393a4e4d7e214ce1a12b',
     messagingSenderId: '813199146802',
     projectId: 'clg-chat-e0a95',
+    databaseURL: 'https://clg-chat-e0a95-default-rtdb.firebaseio.com',
     storageBucket: 'clg-chat-e0a95.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyCDed-q8Da4fM8FpSg8CAB_CAlzhKnSLig',
+    appId: '1:813199146802:ios:0bcdeafd3a7a90a5e1a12b',
+    messagingSenderId: '813199146802',
+    projectId: 'clg-chat-e0a95',
+    databaseURL: 'https://clg-chat-e0a95-default-rtdb.firebaseio.com',
+    storageBucket: 'clg-chat-e0a95.firebasestorage.app',
+    androidClientId: '813199146802-kfm8djj9u1hcf1t5np857tlni4mlq5nq.apps.googleusercontent.com',
+    iosClientId: '813199146802-d3cqg9brrip0bm4nlc5r1vrt9ll4dicb.apps.googleusercontent.com',
+    iosBundleId: 'com.example.clgChat',
   );
 
 }
