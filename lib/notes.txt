@@ -1,0 +1,6 @@
+auth bloc completed with register and login
+
+
+now working on profile
+59:37
+working on profile 

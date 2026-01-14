@@ -15,4 +15,8 @@ class AppUser {
       name: UserJson['name'],
     );
   }
+  @override
+  String toString() {
+    return 'AppUser(uid: $uid, email: $email, name: $name)';
+  }
 }

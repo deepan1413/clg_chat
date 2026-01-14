@@ -1,10 +1,12 @@
 import 'package:clg_chat/components/mylogs.dart';
 import 'package:clg_chat/features/auth/domain/entities/app_user.dart';
 import 'package:clg_chat/features/auth/domain/repo/auth_repo.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthRepo implements AuthRepo {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore firebaseFirestore=FirebaseFirestore.instance;
 
   @override
   Future<AppUser?> getCurrentUser() async {
@@ -34,6 +36,7 @@ class FirebaseAuthRepo implements AuthRepo {
         uid: userCredential.user!.uid,
         name: '',
       );
+      return user;
     } catch (e) {
       MyLog.error(e.toString());
       throw Exception("login failed  :  $e");
@@ -59,6 +62,8 @@ class FirebaseAuthRepo implements AuthRepo {
         uid: userCredential.user!.uid,
         name: name,
       );
+      await firebaseFirestore.collection("users").doc(user.uid).set(user.toJson());
+      return user;
     } catch (e) {
       MyLog.error(e.toString());
       throw Exception("login failed  :  $e");

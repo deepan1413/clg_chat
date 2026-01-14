@@ -19,22 +19,28 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
-      child: MaterialApp(debugShowCheckedModeBanner: false, home: BlocConsumer<AuthCubit,AuthState>(
-        builder:(context, authState) {
-          if(authState is Unauthenticated){
-            return AuthPage();
-          }
-          if(authState is Authenticated
-          ){
-            return HomePage();
-          }else{
-            return Scaffold(body: Center(child: CircularProgressIndicator(),),);
-          }
-        }
-      
-       , listener: (context, state) {
-         
-       },)),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: BlocConsumer<AuthCubit, AuthState>(
+          builder: (context, authState) {
+            if (authState is Unauthenticated) {
+              return AuthPage();
+            }
+            if (authState is Authenticated) {
+              return HomePage();
+            } else {
+              return Scaffold(body: Center(child: CircularProgressIndicator()));
+            }
+          },
+          listener: (context, state) {
+            if (state is AuthError) {
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
+        ),
+      ),
     );
   }
 }

@@ -32,13 +32,17 @@ class AuthCubit extends Cubit<AuthState> {
       if (user != null) {
         _currentUser = user;
         emit(Authenticated(user));
+     MyLog.success("user found $user");
+
       } else {
+      MyLog.warning("user null $user ");
+
         emit(Unauthenticated());
       }
     } catch (e) {
       emit(AuthError('Auth Error : $e'));
       emit(Unauthenticated());
-      MyLog.info("Error on login $e");
+      MyLog.info(" Error on login {AuthCubit.dart} $e");
     }
   }
 
