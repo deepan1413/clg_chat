@@ -1,4 +1,4 @@
-import 'package:clg_chat/components/mylogs.dart';
+import 'package:clg_chat/components/my_logs.dart';
 import 'package:clg_chat/features/auth/domain/entities/app_user.dart';
 import 'package:clg_chat/features/auth/domain/repo/auth_repo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

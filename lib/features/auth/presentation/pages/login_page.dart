@@ -1,6 +1,6 @@
 import 'package:clg_chat/components/my_button.dart';
 import 'package:clg_chat/components/my_text_field.dart';
-import 'package:clg_chat/components/mylogs.dart';
+import 'package:clg_chat/components/my_logs.dart';
 import 'package:clg_chat/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
