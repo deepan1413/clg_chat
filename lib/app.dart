@@ -3,6 +3,10 @@ import 'package:clg_chat/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:clg_chat/features/auth/presentation/cubits/auth_states.dart';
 import 'package:clg_chat/features/auth/presentation/pages/auth_page.dart';
 import 'package:clg_chat/features/home/presentation/pages/home_page.dart';
+import 'package:clg_chat/features/profile/data/firebase_profile_repo.dart';
+import 'package:clg_chat/features/profile/presentation/cubits/profile_cubit.dart';
+import 'package:clg_chat/features/storage/data/firebase_storage_repo.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,11 +18,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final authRepo = FirebaseAuthRepo();
+  final firebaseAuthRepo = FirebaseAuthRepo();
+  final firebaseProfileRepo = FirebaseProfileRepo();
+  final firebaseStorageRepo = FirebaseStorageRepo();
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(authRepo: authRepo)..checkAuth(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthCubit>(
+          create: (context) => AuthCubit(authRepo: firebaseAuthRepo)..checkAuth(),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (context) => ProfileCubit(
+            profileRepo: firebaseProfileRepo,
+            storageRepo: firebaseStorageRepo,
+          ),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: BlocConsumer<AuthCubit, AuthState>(

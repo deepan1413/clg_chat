@@ -32,10 +32,9 @@ class AuthCubit extends Cubit<AuthState> {
       if (user != null) {
         _currentUser = user;
         emit(Authenticated(user));
-     MyLog.success("user found $user");
-
+        MyLog.success("user found $user");
       } else {
-      MyLog.warning("user null $user ");
+        MyLog.warning("user null $user ");
 
         emit(Unauthenticated());
       }
@@ -47,11 +46,15 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   Future<void> register(String name, String email, String password) async {
-   try {
+    try {
       MyLog.info("AuthLoading on Login");
       emit(AuthLoading());
 
-      final user = await authRepo.registerWithEmailAndPassword(name,email, password);
+      final user = await authRepo.registerWithEmailAndPassword(
+        name,
+        email,
+        password,
+      );
       if (user != null) {
         _currentUser = user;
         emit(Authenticated(user));
@@ -64,6 +67,7 @@ class AuthCubit extends Cubit<AuthState> {
       MyLog.info("Error on login $e");
     }
   }
+
   Future<void> logout() async {
     emit(AuthLoading());
     MyLog.info("AuthLoading on Logout");

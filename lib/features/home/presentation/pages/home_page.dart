@@ -16,13 +16,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-
-  final List<Widget> _pages = const [
+  late final user = context.read<AuthCubit>().currentUser;
+  late final List<Widget> _pages =  [
     ChatPage(),
     GlobalChatPage(),
     GroupsPage(),
     LostFoundPage(),
-    ProfilePage(),
+    ProfilePage( uid: user!.uid),
   ];
 
   void _onTabSelected(int index) {
@@ -36,10 +36,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -53,14 +50,8 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.chat_bubble_outline),
             label: 'Chats',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.public),
-            label: 'Global',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.groups),
-            label: 'Groups',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.public), label: 'Global'),
+          BottomNavigationBarItem(icon: Icon(Icons.groups), label: 'Groups'),
           BottomNavigationBarItem(
             icon: Icon(Icons.find_in_page),
             label: 'Lost & Found',
